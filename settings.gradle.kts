@@ -1,13 +1,12 @@
 rootProject.name = "home_work"
 
+include("homework_1")
+
 pluginManagement {
-    val kotlinVersion: String by settings
+    val kotlinJvmVersion: String by settings
 
     plugins {
-        kotlin("jvm") version kotlinVersion apply false
+        kotlin("jvm") version kotlinJvmVersion apply false
     }
 
 }
-
-//include("homework_1")
-include("homework_2")
