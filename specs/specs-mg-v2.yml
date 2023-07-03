@@ -227,20 +227,28 @@ components:
           description: Заголовок предложения
         description:
           type: string
-          description: Описание предложения
-        mgType:
-          $ref: '#/components/schemas/DealSide'
+          description: Подролбное описание программы кредитования
+        borrowerCategory:
+          $ref: '#/components/schemas/BorrowerCategory'
         visibility:
           $ref: '#/components/schemas/MgVisibility'
         productId:
           $ref: '#/components/schemas/ProductId'
+        rate:
+          $ref: '#/components/schemas/Rate'
 
-    DealSide:
+    Rate:
+      type: long
+      description: 'Ставка'
+
+    BorrowerCategory:
       type: string
-      description: 'Сторона сделки: спрос или предложение'
+      description: 'Категория клиента'
       enum:
-        - demand
-        - supply
+        - employee
+        - salary
+        - confirm_income
+        - not_confirm_income
 
     MgVisibility:
       type: string
