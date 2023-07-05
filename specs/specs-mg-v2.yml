@@ -217,6 +217,12 @@ components:
     ProductId:
       type: string
       description: Идентификатор ипотеки, к которому относится предложение
+    Rate:
+      type: Double
+      description: 'Ставка'
+    BankId:
+      type: long
+      description: 'Идентификатор Банка'
 
     BaseMg:
       type: object
@@ -236,10 +242,8 @@ components:
           $ref: '#/components/schemas/ProductId'
         rate:
           $ref: '#/components/schemas/Rate'
-
-    Rate:
-      type: long
-      description: 'Ставка'
+        bankId:
+          $ref: '#/components/schemas/BankId'
 
     BorrowerCategory:
       type: string
