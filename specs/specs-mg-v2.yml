@@ -218,7 +218,7 @@ components:
       type: string
       description: Идентификатор ипотеки, к которому относится предложение
     Rate:
-      type: Double
+      type: double
       description: 'Ставка'
     BankId:
       type: long

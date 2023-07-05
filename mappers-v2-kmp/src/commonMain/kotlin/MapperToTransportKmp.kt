@@ -27,13 +27,13 @@ import ru.dpanteleev.otus_kotlin.api.v2.models.MgVisibility
 import ru.dpanteleev.otus_kotlin.api.v2.models.ResponseResult
 
 
-fun Context.fromTransport(): IResponse = when (val cmd = command) {
-	Command.CREATE -> fromTransport()
-	Command.READ -> fromTransport()
-	Command.UPDATE -> fromTransport()
-	Command.DELETE -> fromTransport()
-	Command.SEARCH -> fromTransport()
-	Command.OFFERS -> fromTransport()
+fun Context.toTransport(): IResponse = when (val cmd = command) {
+	Command.CREATE -> toTransportCreate()
+	Command.READ -> toTransportRead()
+	Command.UPDATE -> toTransportUpdate()
+	Command.DELETE -> toTransportDelete()
+	Command.SEARCH -> toTransportSearch()
+	Command.OFFERS -> toTransportOffers()
 	else -> throw UnknownCommand(cmd)
 }
 
