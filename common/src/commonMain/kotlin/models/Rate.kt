@@ -7,6 +7,8 @@ import kotlin.math.withSign
 value class Rate(private val rate: Double) {
 	fun asString() = rate.withSign(2).toString()
 
+	fun asLong() = rate
+
 	companion object {
 		val NONE = Rate(Double.NaN)
 	}

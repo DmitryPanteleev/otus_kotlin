@@ -7,8 +7,9 @@ value class BankId(
 	private val id: Long
 ) {
 	fun asString() = id.toString()
+	fun asLong() = id
 
-	companion object{
+	companion object {
 		val NONE = BankId(-1)
 	}
 }

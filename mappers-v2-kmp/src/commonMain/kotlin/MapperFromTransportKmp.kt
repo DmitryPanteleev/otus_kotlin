@@ -1,5 +1,6 @@
 package mappers.v2
 
+import Context
 import exceptions.UnknownClass
 import models.BankId
 import models.BorrowerCategoryModel
