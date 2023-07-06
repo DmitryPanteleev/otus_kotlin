@@ -48,7 +48,7 @@ class RequestSerializationTest {
             "requestType":"create",
             "requestId":"123",
             "debug":{"mode":"stub","stub":"badTitle"},
-            "ad":{"title":"mg title","description":"mg description","mgType":"demand","visibility":"public","productId":null}
+            "mg":{"title":"mg title","description":"mg description","borrowerCategory":"salary","visibility":"public","productId":null}
             }
         """.trimIndent()
         val obj = apiV2RequestDeserialize(jsonString) as IRequest
