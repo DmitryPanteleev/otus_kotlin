@@ -19,7 +19,7 @@ pluginManagement {
 }
 
 //include("homework_1")
-include("homework_2")
+//include("homework_2")
 //include("api-v1-jackson")
 include("api-v2-kmp")
 include("mappers-v2-kmp")
