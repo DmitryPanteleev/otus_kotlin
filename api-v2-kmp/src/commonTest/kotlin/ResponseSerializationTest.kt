@@ -13,7 +13,7 @@ class ResponseSerializationTest {
         mg = MgResponseObject(
             title = "mg title",
             description = "mg description",
-            mgType = DealSide.DEMAND,
+            borrowerCategory = BorrowerCategory.SALARY,
             visibility = MgVisibility.PUBLIC,
         )
     )

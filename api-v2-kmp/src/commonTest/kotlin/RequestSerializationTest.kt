@@ -17,7 +17,7 @@ class RequestSerializationTest {
         mg = MgCreateObject(
             title = "mg title",
             description = "mg description",
-            mgType = DealSide.DEMAND,
+            borrowerCategory = BorrowerCategory.SALARY,
             visibility = MgVisibility.PUBLIC,
         )
     )
