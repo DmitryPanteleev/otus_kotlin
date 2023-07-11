@@ -7,7 +7,7 @@ import fixture.client.Client
 suspend fun Client.searchBank(): Unit =
     withClue("searchBank") {
         val response = sendAndReceive(
-            "v1/bank/search", """
+            "bank/search", """
                 {
                     "name": "Sber"
                 }

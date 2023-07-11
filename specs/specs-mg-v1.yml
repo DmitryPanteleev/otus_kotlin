@@ -1,0 +1,458 @@
+openapi: 3.0.4
+info:
+  title: "Mortgage search ${VERSION_APP}"
+  description: This is a place where bank and user meat each other
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: mg
+    description: Данные о предложенной ипотеке банком
+paths:
+  /mg/create:
+    post:
+      tags:
+        - mg
+      summary: Create mg
+      operationId: mgCreate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MgCreateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MgCreateResponse'
+  /mg/read:
+    post:
+      tags:
+        - mg
+      summary: Read mg
+      operationId: mgRead
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MgReadRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MgReadResponse'
+  /mg/update:
+    post:
+      tags:
+        - mg
+      summary: Update mg
+      operationId: mgUpdate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MgUpdateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MgUpdateResponse'
+  /mg/delete:
+    post:
+      tags:
+        - mg
+      summary: Delete mg
+      operationId: mgDelete
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MgDeleteRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MgDeleteResponse'
+  /mg/search:
+    post:
+      tags:
+        - mg
+      summary: Search mg
+      operationId: mgSearch
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MgSearchRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MgSearchResponse'
+  /mg/offers:
+    post:
+      tags:
+        - mg
+      summary: Search offers
+      operationId: mgOffers
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MgOffersRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MgOffersResponse'
+
+components:
+  schemas:
+
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        requestType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        requestId:
+          type: string
+          description: Идентификатор запроса для отладки
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/MgCreateRequest'
+          read:   '#/components/schemas/MgReadRequest'
+          update: '#/components/schemas/MgUpdateRequest'
+          delete: '#/components/schemas/MgDeleteRequest'
+          search: '#/components/schemas/MgSearchRequest'
+          offers: '#/components/schemas/MgOffersRequest'
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        requestId:
+          type: string
+          description: Идентификатор запроса для отладки
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/MgCreateResponse'
+          read:   '#/components/schemas/MgReadResponse'
+          update: '#/components/schemas/MgUpdateResponse'
+          delete: '#/components/schemas/MgDeleteResponse'
+          search: '#/components/schemas/MgSearchResponse'
+          offers: '#/components/schemas/MgOffersResponse'
+          init: '#/components/schemas/MgInitResponse'
+
+
+    UserId:
+      type: string
+      description: Идентификатор пользователя
+    MgId:
+      type: string
+      description: Идентификатор предложения
+    MgLock:
+      type: string
+      description: Версия оптимистичной блокировки
+
+    BaseMg:
+      type: object
+      description: Объект описывает свойства, одинаковые для create и update
+      properties:
+        title:
+          type: string
+          description: Заголовок предложения
+        description:
+          type: string
+          description: Описание предложения
+        mgType:
+          $ref: '#/components/schemas/DealSide'
+        visibility:
+          $ref: '#/components/schemas/MgVisibility'
+
+    DealSide:
+      type: string
+      description: 'Сторона сделки: спрос или предложение'
+      enum:
+        - demand
+        - supply
+
+    MgVisibility:
+      type: string
+      description: 'Тип видимости предложения. Возможные значения: видит только владелец, только зарегистрированный в системе пользователь, видимо всем'
+      enum:
+        - ownerOnly
+        - registeredOnly
+        - public
+
+    MgInitResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+
+    MgCreateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseMg'
+
+    MgCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/MgRequestDebug'
+        - type: object
+          properties:
+            mg:
+              $ref: '#/components/schemas/MgCreateObject'
+
+    MgReadObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/MgId'
+
+    MgReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/MgRequestDebug'
+        - type: object
+          properties:
+            mg:
+              $ref: '#/components/schemas/MgReadObject'
+
+    MgUpdateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseMg'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/MgId'
+            lock:
+              $ref: '#/components/schemas/MgLock'
+
+    MgUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/MgRequestDebug'
+        - type: object
+          properties:
+            mg:
+              $ref: '#/components/schemas/MgUpdateObject'
+
+    MgDeleteObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/MgId'
+            lock:
+              $ref: '#/components/schemas/MgLock'
+
+    MgDeleteRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/MgRequestDebug'
+        - type: object
+          properties:
+            mg:
+              $ref: '#/components/schemas/MgDeleteObject'
+
+    MgSearchFilter:
+      type: object
+      description: Набор фильтров для поиска
+      properties:
+        searchString:
+          type: string
+          description: Поисковая строка, которая будет искаться в предложениях
+
+    MgSearchRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/MgRequestDebug'
+        - type: object
+          properties:
+            adFilter:
+              $ref: '#/components/schemas/MgSearchFilter'
+
+    MgOffersObject:
+      $ref: '#/components/schemas/MgReadObject'
+
+    MgOffersRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/MgRequestDebug'
+        - type: object
+          properties:
+            mg:
+              $ref: '#/components/schemas/MgOffersObject'
+
+    MgResponseObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseMg'
+        - type: object
+          description: Объект, который возвращается в ответе бэкенда
+          properties:
+            id:
+              $ref: '#/components/schemas/MgId'
+            ownerId:
+              $ref: '#/components/schemas/UserId'
+            lock:
+              $ref: '#/components/schemas/MgLock'
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/MgPermissions'
+
+    MgPermissions:
+      type: string
+      description: Доступы для клиента для операций над объявлением
+      enum:
+        - read
+        - update
+        - delete
+        - makeVisiblePublic
+        - makeVisibleOwn
+        - makeVisibleGroup
+
+    MgResponseSingle:
+      allOf:
+        - type: object
+          description: Ответ с одним объектом объявления
+          properties:
+            mg:
+              $ref: '#/components/schemas/MgResponseObject'
+
+    MgResponseMulti:
+      allOf:
+        - type: object
+          description: Список найденных объектов
+          properties:
+            mgs:
+              type: array
+              items:
+                $ref: '#/components/schemas/MgResponseObject'
+
+    MgCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/MgResponseSingle'
+
+    MgReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/MgResponseSingle'
+
+    MgUpdateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/MgResponseSingle'
+
+    MgDeleteResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/MgResponseSingle'
+
+    MgSearchResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/MgResponseMulti'
+
+    MgOffersResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/MgResponseSingle'
+        - $ref: '#/components/schemas/MgResponseMulti'
+
+    # STUBS ======================
+    MgRequestDebugMode:
+      type: string
+      enum:
+        - prod
+        - test
+        - stub
+
+    MgRequestDebug:
+      type: object
+      properties:
+        debug:
+          $ref: '#/components/schemas/MgDebug'
+
+    MgDebug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/MgRequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/MgRequestDebugStubs'
+
+    MgRequestDebugStubs:
+      type: string
+      description: Перечисления всех стабов
+      enum:
+        - success
+        - notFound
+        - badId
+        - badTitle
+        - badDescription
+        - badVisibility
+        - cannotDelete
+        - badSearchString
