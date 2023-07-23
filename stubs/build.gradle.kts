@@ -2,9 +2,6 @@ plugins {
     kotlin("multiplatform")
 }
 
-group = rootProject.group
-version = rootProject.version
-
 kotlin {
     jvm {}
     linuxX64 {}
@@ -15,7 +12,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation(project(":api-v2-kmp"))
+
                 implementation(project(":common"))
             }
         }

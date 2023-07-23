@@ -13,14 +13,17 @@ pluginManagement {
         id("io.ktor.plugin") version ktorVersion apply false
         id("com.bmuschko.docker-java-application") version bmuschkoVersion apply false
         id("com.bmuschko.docker-spring-boot-application") version bmuschkoVersion apply false
-        id("com.bmuschko.docker-remote-api") version bmuschkoVersion apply false
+        id("com.bmuschko.docker-remote-ru.dpanteleev.otus_kotlin.api") version bmuschkoVersion apply false
         id("org.openapi.generator") version openapiVersion apply false
     }
 }
 
 //include("homework_1")
 include("homework_2")
-//include("api-v1-jackson")
+//include("ru.dpanteleev.otus_kotlin.api-v1-jackson")
 include("api-v2-kmp")
 include("mappers-v2-kmp")
 include("common")
+include("app-ktor")
+include("app-biz")
+include("stubs")
