@@ -1,6 +1,5 @@
 package ru.dpanteleev.otus_kotlin
-import apiV2Mapper
-import apiV2RequestDeserialize
+
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals

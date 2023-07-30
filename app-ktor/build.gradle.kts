@@ -44,22 +44,18 @@ ktor {
 	}
 }
 
-//jib {
-//	container.mainClass = "io.ktor.server.cio.EngineMain"
-//}
-
 kotlin {
 	jvm {
 		withJava()
 	}
 	linuxX64 {}
 //	macosX64 {}
-//	macosArm64 {}
+	macosArm64 {}
 
 	targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
 		binaries {
 			executable {
-				entryPoint = "otus_kotlin.app-ktor.src.commonMain.kotlin.app.main"
+				entryPoint = "ru.dpanteleev.otus_kotlin.main"
 			}
 		}
 	}

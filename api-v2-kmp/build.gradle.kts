@@ -5,10 +5,12 @@ plugins {
 }
 
 kotlin {
-    jvm {}
+    jvm {
+        withJava()
+    }
     linuxX64 {}
 //    macosX64 {}
-//    macosArm64 {}
+    macosArm64 {}
 
     sourceSets {
         val serializationVersion: String by project
@@ -31,6 +33,13 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+            }
+        }
+
+        @Suppress("UNUSED_VARIABLE")
+        val jvmTest by getting {
+            dependencies {
+                implementation(kotlin("test-junit"))
             }
         }
     }

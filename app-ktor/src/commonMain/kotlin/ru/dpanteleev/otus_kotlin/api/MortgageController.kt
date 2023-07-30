@@ -2,7 +2,6 @@ package ru.dpanteleev.otus_kotlin.api
 
 import ru.dpanteleev.otus_kotlin.Context
 import ru.dpanteleev.otus_kotlin.MgProcessor
-import apiV2Mapper
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -19,6 +18,7 @@ import ru.dpanteleev.otus_kotlin.api.v2.models.MgDeleteRequest
 import ru.dpanteleev.otus_kotlin.api.v2.models.MgReadRequest
 import ru.dpanteleev.otus_kotlin.api.v2.models.MgSearchRequest
 import ru.dpanteleev.otus_kotlin.api.v2.models.MgUpdateRequest
+import ru.dpanteleev.otus_kotlin.apiV2Mapper
 
 suspend fun ApplicationCall.create(processor: MgProcessor) {
     val request = apiV2Mapper.decodeFromString<MgCreateRequest>(receiveText())
