@@ -4,7 +4,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
-import ru.dpanteleev.otus_kotlin.api.v2.models.*
+import ru.dpanteleev.otus_kotlin.models.*
 
 /**
  * Добавляйте сюда элементы при появлении новых наследников IRequest / IResponse

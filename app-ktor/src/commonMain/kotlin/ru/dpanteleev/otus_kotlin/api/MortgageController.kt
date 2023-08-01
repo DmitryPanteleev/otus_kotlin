@@ -13,11 +13,11 @@ import ru.dpanteleev.otus_kotlin.toTransportDelete
 import ru.dpanteleev.otus_kotlin.toTransportRead
 import ru.dpanteleev.otus_kotlin.toTransportSearch
 import ru.dpanteleev.otus_kotlin.toTransportUpdate
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgCreateRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgDeleteRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgReadRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgSearchRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgUpdateRequest
+import ru.dpanteleev.otus_kotlin.models.MgCreateRequest
+import ru.dpanteleev.otus_kotlin.models.MgDeleteRequest
+import ru.dpanteleev.otus_kotlin.models.MgReadRequest
+import ru.dpanteleev.otus_kotlin.models.MgSearchRequest
+import ru.dpanteleev.otus_kotlin.models.MgUpdateRequest
 import ru.dpanteleev.otus_kotlin.apiV2Mapper
 
 suspend fun ApplicationCall.create(processor: MgProcessor) {

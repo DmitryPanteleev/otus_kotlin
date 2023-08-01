@@ -5,7 +5,7 @@ import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
-import ru.dpanteleev.otus_kotlin.api.v2.models.*
+import ru.dpanteleev.otus_kotlin.models.*
 
 class RequestSerializationTest {
     private val request: IRequest = MgCreateRequest(

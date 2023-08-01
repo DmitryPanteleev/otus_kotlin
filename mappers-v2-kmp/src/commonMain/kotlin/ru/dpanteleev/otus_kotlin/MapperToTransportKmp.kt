@@ -10,20 +10,20 @@ import ru.dpanteleev.otus_kotlin.models.Mortgage
 import ru.dpanteleev.otus_kotlin.models.MortgageId
 import ru.dpanteleev.otus_kotlin.models.State
 import ru.dpanteleev.otus_kotlin.models.Visibility
-import ru.dpanteleev.otus_kotlin.api.v2.models.BorrowerCategory
-import ru.dpanteleev.otus_kotlin.api.v2.models.IResponse
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgCreateResponse
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgDeleteResponse
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgInitResponse
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgOffersResponse
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgPermissions
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgReadResponse
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgResponseObject
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgSearchResponse
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgUpdateResponse
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgVisibility
-import ru.dpanteleev.otus_kotlin.api.v2.models.ResponseResult
-import ru.dpanteleev.otus_kotlin.api.v2.models.Error
+import ru.dpanteleev.otus_kotlin.models.BorrowerCategory
+import ru.dpanteleev.otus_kotlin.models.IResponse
+import ru.dpanteleev.otus_kotlin.models.MgCreateResponse
+import ru.dpanteleev.otus_kotlin.models.MgDeleteResponse
+import ru.dpanteleev.otus_kotlin.models.MgInitResponse
+import ru.dpanteleev.otus_kotlin.models.MgOffersResponse
+import ru.dpanteleev.otus_kotlin.models.MgPermissions
+import ru.dpanteleev.otus_kotlin.models.MgReadResponse
+import ru.dpanteleev.otus_kotlin.models.MgResponseObject
+import ru.dpanteleev.otus_kotlin.models.MgSearchResponse
+import ru.dpanteleev.otus_kotlin.models.MgUpdateResponse
+import ru.dpanteleev.otus_kotlin.models.MgVisibility
+import ru.dpanteleev.otus_kotlin.models.ResponseResult
+import ru.dpanteleev.otus_kotlin.models.Error
 
 
 fun Context.toTransport(): IResponse = when (val cmd = command) {

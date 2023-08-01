@@ -11,8 +11,8 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.modules.SerializersModuleBuilder
 import kotlinx.serialization.modules.contextual
-import ru.dpanteleev.otus_kotlin.api.v2.models.IRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.IResponse
+import ru.dpanteleev.otus_kotlin.models.IRequest
+import ru.dpanteleev.otus_kotlin.models.IResponse
 
 internal data class PolymorphicInfo<S : Any, T : S>(
 	val klass: KClass<T>,

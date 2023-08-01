@@ -11,20 +11,20 @@ import ru.dpanteleev.otus_kotlin.models.Rate
 import ru.dpanteleev.otus_kotlin.models.RequestId
 import ru.dpanteleev.otus_kotlin.models.Visibility
 import ru.dpanteleev.otus_kotlin.models.WorkMode
-import ru.dpanteleev.otus_kotlin.api.v2.models.BorrowerCategory
-import ru.dpanteleev.otus_kotlin.api.v2.models.IRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgCreateObject
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgCreateRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgDeleteRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgOffersRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgReadRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgRequestDebugMode
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgRequestDebugStubs
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgSearchFilter
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgSearchRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgUpdateObject
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgUpdateRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgVisibility
+import ru.dpanteleev.otus_kotlin.models.BorrowerCategory
+import ru.dpanteleev.otus_kotlin.models.IRequest
+import ru.dpanteleev.otus_kotlin.models.MgCreateObject
+import ru.dpanteleev.otus_kotlin.models.MgCreateRequest
+import ru.dpanteleev.otus_kotlin.models.MgDeleteRequest
+import ru.dpanteleev.otus_kotlin.models.MgOffersRequest
+import ru.dpanteleev.otus_kotlin.models.MgReadRequest
+import ru.dpanteleev.otus_kotlin.models.MgRequestDebugMode
+import ru.dpanteleev.otus_kotlin.models.MgRequestDebugStubs
+import ru.dpanteleev.otus_kotlin.models.MgSearchFilter
+import ru.dpanteleev.otus_kotlin.models.MgSearchRequest
+import ru.dpanteleev.otus_kotlin.models.MgUpdateObject
+import ru.dpanteleev.otus_kotlin.models.MgUpdateRequest
+import ru.dpanteleev.otus_kotlin.models.MgVisibility
 import ru.dpanteleev.otus_kotlin.stubs.MgStubs
 
 fun Context.fromTransport(request: IRequest) = when (request) {

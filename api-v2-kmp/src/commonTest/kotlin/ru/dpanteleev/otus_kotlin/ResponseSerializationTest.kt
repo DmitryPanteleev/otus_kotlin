@@ -2,7 +2,7 @@ package ru.dpanteleev.otus_kotlin
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
-import ru.dpanteleev.otus_kotlin.api.v2.models.*
+import ru.dpanteleev.otus_kotlin.models.*
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
