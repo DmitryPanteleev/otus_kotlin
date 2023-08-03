@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class, ExperimentalSerializationApi::class)
+
 package ru.dpanteleev.otus_kotlin
 
 import kotlin.reflect.KClass
@@ -51,8 +53,6 @@ private inline fun findInfo(
 		it.superClass == klass && it.predicate()
 	} ?: throw SerializationException(error)
 
-
-@OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
 private inline fun <reified T : Any> SerializersModuleBuilder.polymorphicSerializer() {
 	polymorphicDefaultSerializer(T::class) { value ->
 		val info = findInfo(T::class, "Unknown class to serialize ${value::class}") { klass == value::class }
@@ -72,7 +72,7 @@ private inline fun <reified T : Any> SerializersModuleBuilder.polymorphicSeriali
 
 private class PolymorphicSerializer<T : Any>(private val klass: KClass<T>, private val discriminatorField: String) :
 	JsonContentPolymorphicSerializer<T>(klass) {
-	@OptIn(InternalSerializationApi::class)
+
 	@Suppress("UNCHECKED_CAST")
 	override fun selectDeserializer(element: JsonElement): DeserializationStrategy<out T> {
 		val discriminatorValue = element.jsonObject[discriminatorField]?.jsonPrimitive?.content
@@ -86,7 +86,6 @@ private class PolymorphicSerializer<T : Any>(private val klass: KClass<T>, priva
 private val requestSerializer = PolymorphicSerializer(IRequest::class, "requestType")
 private val responseSerializer = PolymorphicSerializer(IResponse::class, "responseType")
 
-@OptIn(ExperimentalSerializationApi::class)
 internal fun SerializersModuleBuilder.setupPolymorphic() {
 	polymorphicSerializer<IRequest>()
 	polymorphicDefaultDeserializer(IRequest::class) { requestSerializer }

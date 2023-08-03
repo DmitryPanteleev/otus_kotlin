@@ -2,14 +2,14 @@ package ru.dpanteleev.otus_kotlin
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import ru.dpanteleev.otus_kotlin.api.v2.models.BorrowerCategory
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgCreateObject
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgCreateRequest
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgCreateResponse
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgDebug
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgRequestDebugMode
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgRequestDebugStubs
-import ru.dpanteleev.otus_kotlin.api.v2.models.MgVisibility
+import ru.dpanteleev.otus_kotlin.models.BorrowerCategory
+import ru.dpanteleev.otus_kotlin.models.MgCreateObject
+import ru.dpanteleev.otus_kotlin.models.MgCreateRequest
+import ru.dpanteleev.otus_kotlin.models.MgCreateResponse
+import ru.dpanteleev.otus_kotlin.models.MgDebug
+import ru.dpanteleev.otus_kotlin.models.MgRequestDebugMode
+import ru.dpanteleev.otus_kotlin.models.MgRequestDebugStubs
+import ru.dpanteleev.otus_kotlin.models.MgVisibility
 import ru.dpanteleev.otus_kotlin.models.BorrowerCategoryModel
 import ru.dpanteleev.otus_kotlin.models.Command
 import ru.dpanteleev.otus_kotlin.models.MgError
