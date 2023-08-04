@@ -85,8 +85,8 @@ kotlin {
 				implementation(project(":stubs"))
 
 				implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-//				implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
-//				implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+				implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
+				implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
 			}
 		}
 

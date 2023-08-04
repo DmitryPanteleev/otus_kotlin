@@ -53,9 +53,10 @@ private inline fun findInfo(
 		it.superClass == klass && it.predicate()
 	} ?: throw SerializationException(error)
 
+@OptIn(InternalSerializationApi::class)
 private inline fun <reified T : Any> SerializersModuleBuilder.polymorphicSerializer() {
-	polymorphicDefaultSerializer(T::class) { value ->
-		val info = findInfo(T::class, "Unknown class to serialize ${value::class}") { klass == value::class }
+	polymorphicDefaultDeserializer(T::class ) { value ->
+		val info = findInfo(T::class, "Unknown class to serialize ${value!!::class}") { klass == value::class }
 		object : KSerializer<T> {
 			override val descriptor: SerialDescriptor
 				get() = info.klass.serializer().descriptor
@@ -73,6 +74,7 @@ private inline fun <reified T : Any> SerializersModuleBuilder.polymorphicSeriali
 private class PolymorphicSerializer<T : Any>(private val klass: KClass<T>, private val discriminatorField: String) :
 	JsonContentPolymorphicSerializer<T>(klass) {
 
+	@OptIn(InternalSerializationApi::class)
 	@Suppress("UNCHECKED_CAST")
 	override fun selectDeserializer(element: JsonElement): DeserializationStrategy<out T> {
 		val discriminatorValue = element.jsonObject[discriminatorField]?.jsonPrimitive?.content
@@ -86,12 +88,12 @@ private class PolymorphicSerializer<T : Any>(private val klass: KClass<T>, priva
 private val requestSerializer = PolymorphicSerializer(IRequest::class, "requestType")
 private val responseSerializer = PolymorphicSerializer(IResponse::class, "responseType")
 
-internal fun SerializersModuleBuilder.setupPolymorphic() {
+fun SerializersModuleBuilder.setupPolymorphic() {
 	polymorphicSerializer<IRequest>()
-	polymorphicDefaultDeserializer(IRequest::class) { requestSerializer }
+	polymorphicDefaultDeserializer(IRequest::class ) { requestSerializer }
 
 	polymorphicSerializer<IResponse>()
-	polymorphicDefaultDeserializer(IResponse::class) { responseSerializer }
+	polymorphicDefaultDeserializer(IResponse::class ) { responseSerializer }
 
 	contextual(requestSerializer)
 	contextual(responseSerializer)
