@@ -55,7 +55,7 @@ private inline fun findInfo(
 
 @OptIn(InternalSerializationApi::class)
 private inline fun <reified T : Any> SerializersModuleBuilder.polymorphicSerializer() {
-	polymorphicDefaultDeserializer(T::class ) { value ->
+	polymorphicDefaultSerializer(T::class ) { value ->
 		val info = findInfo(T::class, "Unknown class to serialize ${value!!::class}") { klass == value::class }
 		object : KSerializer<T> {
 			override val descriptor: SerialDescriptor
