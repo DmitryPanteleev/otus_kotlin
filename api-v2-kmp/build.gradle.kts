@@ -1,3 +1,5 @@
+val serializationVersion: String by project
+
 plugins {
     kotlin("multiplatform")
     id("org.openapi.generator")
@@ -7,11 +9,10 @@ plugins {
 kotlin {
     jvm {}
     linuxX64 {}
-    macosX64 {}
+//    macosX64 {}
     macosArm64 {}
 
     sourceSets {
-        val serializationVersion: String by project
 
         @Suppress("UNUSED_VARIABLE")
         val commonMain by getting {
@@ -47,7 +48,7 @@ kotlin {
  * Настраиваем генерацию здесь
  */
 openApiGenerate {
-    val openapiGroup = "${rootProject.group}.api.v2"
+    val openapiGroup = "${rootProject.group}"
     generatorName.set("kotlin") // Это и есть активный генератор
     packageName.set(openapiGroup)
     apiPackage.set("$openapiGroup.api")

@@ -21,11 +21,11 @@ sourceSets {
  * Настраиваем генерацию здесь
  */
 openApiGenerate {
-    val openapiGroup = "${rootProject.group}.api.v1"
+    val openapiGroup = "${rootProject.group}.ru.dpanteleev.otus_kotlin.api.v1"
     generatorName.set("kotlin") // Это и есть активный генератор
     packageName.set(openapiGroup)
-    apiPackage.set("$openapiGroup.api")
-    modelPackage.set("$openapiGroup.models")
+    apiPackage.set("$openapiGroup.ru.dpanteleev.otus_kotlin.api")
+    modelPackage.set("$openapiGroup.ru.dpanteleev.otus_kotlin.models")
     invokerPackage.set("$openapiGroup.invoker")
     inputSpec.set("$rootDir/specs/specs-mg-v1.yml")
 

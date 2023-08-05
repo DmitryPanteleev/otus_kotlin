@@ -2,9 +2,6 @@ plugins {
     kotlin("multiplatform")
 }
 
-group = rootProject.group
-version = rootProject.version
-
 kotlin {
     jvm {}
     linuxX64 {}
@@ -12,18 +9,26 @@ kotlin {
     macosArm64 {}
 
     sourceSets {
+        val coroutinesVersion: String by project
+
+        all { languageSettings.optIn("kotlin.RequiresOptIn") }
+
+        @Suppress("UNUSED_VARIABLE")
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation(project(":api-v2-kmp"))
+
                 implementation(project(":common"))
+                implementation(project(":stubs"))
             }
         }
+        @Suppress("UNUSED_VARIABLE")
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation(kotlin("test-junit"))
+
+                api("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
             }
         }
     }
