@@ -2,28 +2,28 @@ package ru.dpanteleev.otus_kotlin
 
 import ru.dpanteleev.otus_kotlin.exceptions.UnknownCommand
 import ru.dpanteleev.otus_kotlin.models.BankId
+import ru.dpanteleev.otus_kotlin.models.BorrowerCategory
 import ru.dpanteleev.otus_kotlin.models.BorrowerCategoryModel
 import ru.dpanteleev.otus_kotlin.models.Command
-import ru.dpanteleev.otus_kotlin.models.MgError
-import ru.dpanteleev.otus_kotlin.models.MgPermissionClient
-import ru.dpanteleev.otus_kotlin.models.Mortgage
-import ru.dpanteleev.otus_kotlin.models.MortgageId
-import ru.dpanteleev.otus_kotlin.models.State
-import ru.dpanteleev.otus_kotlin.models.Visibility
-import ru.dpanteleev.otus_kotlin.models.BorrowerCategory
+import ru.dpanteleev.otus_kotlin.models.Error
 import ru.dpanteleev.otus_kotlin.models.IResponse
 import ru.dpanteleev.otus_kotlin.models.MgCreateResponse
 import ru.dpanteleev.otus_kotlin.models.MgDeleteResponse
+import ru.dpanteleev.otus_kotlin.models.MgError
 import ru.dpanteleev.otus_kotlin.models.MgInitResponse
 import ru.dpanteleev.otus_kotlin.models.MgOffersResponse
+import ru.dpanteleev.otus_kotlin.models.MgPermissionClient
 import ru.dpanteleev.otus_kotlin.models.MgPermissions
 import ru.dpanteleev.otus_kotlin.models.MgReadResponse
 import ru.dpanteleev.otus_kotlin.models.MgResponseObject
 import ru.dpanteleev.otus_kotlin.models.MgSearchResponse
 import ru.dpanteleev.otus_kotlin.models.MgUpdateResponse
 import ru.dpanteleev.otus_kotlin.models.MgVisibility
+import ru.dpanteleev.otus_kotlin.models.Mortgage
+import ru.dpanteleev.otus_kotlin.models.MortgageId
 import ru.dpanteleev.otus_kotlin.models.ResponseResult
-import ru.dpanteleev.otus_kotlin.models.Error
+import ru.dpanteleev.otus_kotlin.models.State
+import ru.dpanteleev.otus_kotlin.models.Visibility
 
 
 fun Context.toTransport(): IResponse = when (val cmd = command) {
@@ -122,10 +122,11 @@ private fun MgPermissionClient.toTransport() = when (this) {
 	MgPermissionClient.DELETE -> MgPermissions.DELETE
 }
 
-private fun Visibility.toTransport(): MgVisibility? = when (this) {
+private fun Visibility.toTransport(): MgVisibility = when (this) {
 	Visibility.PUBLIC -> MgVisibility.PUBLIC
 	Visibility.REGISTERED_ONLY -> MgVisibility.REGISTERED_ONLY
 	Visibility.OWNER_ONLY -> MgVisibility.OWNER_ONLY
+	Visibility.NONE -> MgVisibility.OWNER_ONLY
 }
 
 private fun List<MgError>.toTransportErrors(): List<Error>? = this
@@ -145,4 +146,5 @@ private fun BorrowerCategoryModel.toTransport() = when (this) {
 	BorrowerCategoryModel.SALARY -> BorrowerCategory.SALARY
 	BorrowerCategoryModel.CONFIRM_INCOME -> BorrowerCategory.CONFIRM_INCOME
 	BorrowerCategoryModel.NOT_CONFIRM_INCOME -> BorrowerCategory.NOT_CONFIRM_INCOME
+	BorrowerCategoryModel.NONE -> BorrowerCategory.NOT_CONFIRM_INCOME
 }
