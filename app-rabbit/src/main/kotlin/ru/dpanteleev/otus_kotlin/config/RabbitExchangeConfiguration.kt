@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.marketplace.app.rabbit.config
+package ru.dpanteleev.otus_kotlin.config
 
 // TODO-rmq-3: наш класс настроек взаимодействия с RMQ
 data class RabbitExchangeConfiguration(

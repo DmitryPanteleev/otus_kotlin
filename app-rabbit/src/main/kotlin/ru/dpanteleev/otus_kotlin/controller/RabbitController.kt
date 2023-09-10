@@ -1,8 +1,8 @@
-package ru.otus.otuskotlin.marketplace.app.rabbit.controller
+package ru.dpanteleev.otus_kotlin.controller
 
+import RabbitProcessorBase
 import kotlinx.coroutines.*
-import ru.otus.otuskotlin.marketplace.app.rabbit.RabbitProcessorBase
-import ru.otus.otuskotlin.marketplace.app.rabbit.config.rabbitLogger
+import ru.dpanteleev.otus_kotlin.config.rabbitLogger
 
 // TODO-rmq-5: запуск процессора
 class RabbitController(

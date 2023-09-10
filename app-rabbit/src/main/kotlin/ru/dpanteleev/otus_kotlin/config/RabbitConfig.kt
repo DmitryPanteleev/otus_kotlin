@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.marketplace.app.rabbit.config
+package ru.dpanteleev.otus_kotlin.config
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
