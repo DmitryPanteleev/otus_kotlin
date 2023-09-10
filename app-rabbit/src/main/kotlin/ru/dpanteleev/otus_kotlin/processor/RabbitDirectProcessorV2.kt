@@ -1,20 +1,10 @@
-package ru.otus.otuskotlin.marketplace.app.rabbit.processor
+package ru.dpanteleev.otus_kotlin.processor
 
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.Delivery
-import ru.otus.otuskotlin.marketplace.api.logs.mapper.toLog
-import ru.otus.otuskotlin.marketplace.api.v2.apiV2RequestDeserialize
-import ru.otus.otuskotlin.marketplace.api.v2.apiV2ResponseSerialize
-import ru.otus.otuskotlin.marketplace.api.v2.models.IRequest
-import ru.otus.otuskotlin.marketplace.app.common.MkplAppSettings
-import ru.otus.otuskotlin.marketplace.app.common.process
-import ru.otus.otuskotlin.marketplace.app.rabbit.RabbitProcessorBase
-import ru.otus.otuskotlin.marketplace.app.rabbit.config.RabbitConfig
-import ru.otus.otuskotlin.marketplace.app.rabbit.config.RabbitExchangeConfiguration
-import ru.otus.otuskotlin.marketplace.app.rabbit.config.corSettings
-import ru.otus.otuskotlin.marketplace.app.rabbit.config.rabbitLogger
-import ru.otus.otuskotlin.marketplace.mappers.v2.fromTransport
-import ru.otus.otuskotlin.marketplace.mappers.v2.toTransportAd
+import ru.dpanteleev.otus_kotlin.config.RabbitConfig
+import ru.dpanteleev.otus_kotlin.config.RabbitExchangeConfiguration
+import ru.dpanteleev.otus_kotlin.config.corSettings
 
 class RabbitDirectProcessorV2(
     config: RabbitConfig,
