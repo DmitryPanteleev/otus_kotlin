@@ -4,5 +4,6 @@ enum class State {
 	ACTIVE,
 	CLOSE,
 	NONE,
-	FAILING
+	FAILING,
+	FINISHING
 }
