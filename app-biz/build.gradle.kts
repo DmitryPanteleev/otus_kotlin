@@ -20,6 +20,7 @@ kotlin {
 
                 implementation(project(":common"))
                 implementation(project(":stubs"))
+                implementation(project(":lib-biz-core"))
             }
         }
         @Suppress("UNUSED_VARIABLE")

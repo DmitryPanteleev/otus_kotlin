@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
 import ru.dpanteleev.otus_kotlin.logging.common.IMpLogWrapper
 
 @Suppress("unused")
-fun mpLoggerKermit(loggerId: String): IMpLogWrapper {
+fun loggerKermit(loggerId: String): IMpLogWrapper {
 	val logger = Logger(
 		config = StaticConfig(
 			minSeverity = Severity.Info,
@@ -24,7 +24,7 @@ fun mpLoggerKermit(loggerId: String): IMpLogWrapper {
 }
 
 @Suppress("unused")
-fun mpLoggerKermit(cls: KClass<*>): IMpLogWrapper {
+fun loggerKermit(cls: KClass<*>): IMpLogWrapper {
 	val logger = Logger(
 		config = StaticConfig(
 			minSeverity = Severity.Info,

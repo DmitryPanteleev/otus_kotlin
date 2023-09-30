@@ -1,7 +1,7 @@
 package ru.dpanteleev.otus_kotlin.models
 
-data class FilterRequest(
+data class MgFilter(
 	var searchString: String = "",
-	var bankId: BankId = BankId.NONE,
+	var ownerId: MortgageId = MortgageId.NONE,
 	var borrowerCategoryModel: BorrowerCategoryModel = BorrowerCategoryModel.NONE,
 )
