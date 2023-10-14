@@ -21,6 +21,8 @@ kotlin {
                 implementation(project(":common"))
                 implementation(project(":stubs"))
                 implementation(project(":lib-biz-core"))
+                implementation(project(":repo-in-memory"))
+                implementation(project(":repo-tests"))
             }
         }
         @Suppress("UNUSED_VARIABLE")
@@ -28,6 +30,9 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation(project(":repo-in-memory"))
+                implementation(project(":repo-tests"))
+                implementation(project(":repo-stubs"))
 
                 api("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
             }

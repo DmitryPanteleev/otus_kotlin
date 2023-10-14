@@ -1,0 +1,88 @@
+package ru.dpanteleev.otus_kotlin.biz.repo
+
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
+import ru.dpanteleev.otus_kotlin.Context
+import ru.dpanteleev.otus_kotlin.CoreSettings
+import ru.dpanteleev.otus_kotlin.MgProcessor
+import ru.dpanteleev.otus_kotlin.MgRepositoryMock
+import ru.dpanteleev.otus_kotlin.biz.addTestPrincipal
+import ru.dpanteleev.otus_kotlin.models.BankId
+import ru.dpanteleev.otus_kotlin.models.BorrowerCategoryModel
+import ru.dpanteleev.otus_kotlin.models.Command
+import ru.dpanteleev.otus_kotlin.models.MgLock
+import ru.dpanteleev.otus_kotlin.models.Mortgage
+import ru.dpanteleev.otus_kotlin.models.MortgageId
+import ru.dpanteleev.otus_kotlin.models.State
+import ru.dpanteleev.otus_kotlin.models.Visibility
+import ru.dpanteleev.otus_kotlin.models.WorkMode
+import ru.dpanteleev.otus_kotlin.repo.DbMgResponse
+
+@OptIn(ExperimentalCoroutinesApi::class)
+class BizRepoDeleteTest {
+
+	private val bankId = BankId(321)
+	private val command = Command.DELETE
+	private val initMg = Mortgage(
+		id = MortgageId("123"),
+		title = "abc",
+		description = "abc",
+		bankId = bankId,
+		borrowerCategoryModel = BorrowerCategoryModel.SALARY,
+		visibility = Visibility.PUBLIC,
+		lock = MgLock("123-234-abc-ABC"),
+	)
+	private val repo by lazy {
+		MgRepositoryMock(
+			invokeReadAd = {
+				DbMgResponse(
+					isSuccess = true,
+					data = initMg,
+				)
+			},
+			invokeDeleteAd = {
+				if (it.id == initMg.id)
+					DbMgResponse(
+						isSuccess = true,
+						data = initMg
+					)
+				else DbMgResponse(isSuccess = false, data = null)
+			}
+		)
+	}
+	private val settings by lazy {
+		CoreSettings(
+			repoTest = repo
+		)
+	}
+	private val processor by lazy { MgProcessor(settings) }
+
+	@Test
+	fun repoDeleteSuccessTest() = runTest {
+		val mgToUpdate = Mortgage(
+			id = MortgageId("123"),
+			lock = MgLock("123-234-abc-ABC"),
+		)
+		val ctx = Context(
+			command = command,
+			state = State.NONE,
+			workMode = WorkMode.TEST,
+			mortgageRequest = mgToUpdate,
+		)
+		ctx.addTestPrincipal(bankId)
+		processor.exec(ctx)
+		assertEquals(State.FINISHING, ctx.state)
+		assertTrue { ctx.errors.isEmpty() }
+		assertEquals(initMg.id, ctx.mortgageResponse.first().id)
+		assertEquals(initMg.title, ctx.mortgageResponse.first().title)
+		assertEquals(initMg.description, ctx.mortgageResponse.first().description)
+		assertEquals(initMg.borrowerCategoryModel, ctx.mortgageResponse.first().borrowerCategoryModel)
+		assertEquals(initMg.visibility, ctx.mortgageResponse.first().visibility)
+	}
+
+	@Test
+	fun repoDeleteNotFoundTest() = repoNotFoundTest(command)
+}

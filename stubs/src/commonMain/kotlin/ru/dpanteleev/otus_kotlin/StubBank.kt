@@ -8,9 +8,9 @@ import ru.dpanteleev.otus_kotlin.models.Rate
 import ru.dpanteleev.otus_kotlin.models.Visibility
 
 object StubBank {
-    val DEMAND_BANK1: Mortgage
+    val BANK1: Mortgage
         get() = Mortgage(
-            id = MortgageId(666),
+            id = MortgageId("666"),
             title = "Новостройка",
             description = "Квартира в новостройке",
             bankId = BankId(1),
@@ -26,5 +26,5 @@ object StubBank {
             ),
             rate = Rate(10.0)
         )
-    val SUPPLY_BANK1 = DEMAND_BANK1.copy(borrowerCategoryModel = BorrowerCategoryModel.SALARY)
+    val BANK2 = BANK1.copy(borrowerCategoryModel = BorrowerCategoryModel.SALARY)
 }

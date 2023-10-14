@@ -9,6 +9,11 @@ value class BankId(
 	fun asString() = id.toString()
 	fun asLong() = id
 
+	override fun toString(): String {
+		return "$id"
+	}
+
+
 	companion object {
 		val NONE = BankId(-1)
 	}
