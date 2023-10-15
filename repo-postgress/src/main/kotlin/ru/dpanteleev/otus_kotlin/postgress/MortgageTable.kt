@@ -1,10 +1,12 @@
 package ru.dpanteleev.otus_kotlin.postgress
 
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.statements.InsertStatement
 import org.jetbrains.exposed.sql.statements.UpdateBuilder
+import ru.dpanteleev.otus_kotlin.NONE
 import ru.dpanteleev.otus_kotlin.models.BankId
 import ru.dpanteleev.otus_kotlin.models.BorrowerCategoryModel
 import ru.dpanteleev.otus_kotlin.models.MgLock
@@ -62,6 +64,8 @@ object MortgageTable : Table("mortgage") {
 		it[borrowerCategoryModel] = mortgage.borrowerCategoryModel
 		it[lock] = mortgage.lock.takeIf { it != MgLock.NONE }?.asString() ?: randomUuid()
 		it[rate] = mortgage.rate.asLong()
+		it[timePublished] = mortgage.timePublished.takeIf { it != Instant.NONE }?.toString() ?: Clock.System.now().toString()
+		it[timeUpdated] = mortgage.timeUpdated.toString()
 	}
 
 }
