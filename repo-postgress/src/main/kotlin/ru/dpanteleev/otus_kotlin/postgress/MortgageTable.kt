@@ -10,6 +10,7 @@ import ru.dpanteleev.otus_kotlin.models.BorrowerCategoryModel
 import ru.dpanteleev.otus_kotlin.models.MgLock
 import ru.dpanteleev.otus_kotlin.models.Mortgage
 import ru.dpanteleev.otus_kotlin.models.MortgageId
+import ru.dpanteleev.otus_kotlin.models.Rate
 import ru.dpanteleev.otus_kotlin.models.Visibility
 
 object MortgageTable : Table("mortgage") {
@@ -35,7 +36,8 @@ object MortgageTable : Table("mortgage") {
 		borrowerCategoryModel = res[borrowerCategoryModel],
 		lock = MgLock(res[lock]),
 		timePublished = Instant.parse(res[timePublished]),
-		timeUpdated = Instant.parse(res[timeUpdated])
+		timeUpdated = Instant.parse(res[timeUpdated]),
+		rate = Rate(res[rate])
 	)
 
 	fun from(res: ResultRow) = Mortgage(
@@ -47,7 +49,8 @@ object MortgageTable : Table("mortgage") {
 		borrowerCategoryModel = res[borrowerCategoryModel],
 		lock = MgLock(res[lock]),
 		timePublished = Instant.parse(res[timePublished]),
-		timeUpdated = Instant.parse(res[timeUpdated])
+		timeUpdated = Instant.parse(res[timeUpdated]),
+		rate = Rate(res[rate])
 	)
 
 	fun to(it: UpdateBuilder<*>, mortgage: Mortgage, randomUuid: () -> String) {
@@ -58,6 +61,7 @@ object MortgageTable : Table("mortgage") {
 		it[visibility] = mortgage.visibility
 		it[borrowerCategoryModel] = mortgage.borrowerCategoryModel
 		it[lock] = mortgage.lock.takeIf { it != MgLock.NONE }?.asString() ?: randomUuid()
+		it[rate] = mortgage.rate.asLong()
 	}
 
 }
