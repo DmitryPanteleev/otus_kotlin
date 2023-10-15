@@ -1,5 +1,6 @@
 package ru.dpanteleev.otus_kotlin
 
+import kotlinx.datetime.Clock
 import ru.dpanteleev.otus_kotlin.models.BankId
 import ru.dpanteleev.otus_kotlin.models.BorrowerCategoryModel
 import ru.dpanteleev.otus_kotlin.models.MgLock
@@ -25,5 +26,6 @@ abstract class BaseInitMg(val op: Long) : IInitObjects<Mortgage> {
 		visibility = Visibility.OWNER_ONLY,
 		borrowerCategoryModel = borrowerType,
 		lock = lock,
+		timePublished = Clock.System.now()
 	)
 }
