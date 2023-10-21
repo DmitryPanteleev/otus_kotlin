@@ -3,6 +3,7 @@ package ru.dpanteleev.otus_kotlin
 import io.ktor.server.application.Application
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
+import ru.dpanteleev.otus_kotlin.api.initAppSettings
 import ru.dpanteleev.otus_kotlin.plugins.configureHTTP
 import ru.dpanteleev.otus_kotlin.plugins.configureRouting
 import ru.dpanteleev.otus_kotlin.plugins.configureSerialization
@@ -12,7 +13,8 @@ fun main() {
 		CIO,
 		port = 8080,
 		host = "0.0.0.0",
-		module = Application::module)
+		module = Application::module
+	)
 		.start(wait = true)
 }
 
@@ -23,5 +25,5 @@ fun Application.module() {
 //	configureMonitoring()
 	configureSerialization()
 //	configureDatabases()
-	configureRouting()
+	configureRouting(initAppSettings())
 }
