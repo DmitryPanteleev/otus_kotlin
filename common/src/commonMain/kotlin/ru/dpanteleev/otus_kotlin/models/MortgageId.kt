@@ -3,12 +3,15 @@ package ru.dpanteleev.otus_kotlin.models
 import kotlin.jvm.JvmInline
 
 @JvmInline
-value class MortgageId(private val id: Long) {
-	fun asString() = id.toString()
+value class MortgageId(private val id: String) {
+	fun asString() = id
 
-	fun toLong() = id
+	override fun toString(): String {
+		return id
+	}
+
 
 	companion object {
-		val NONE = MortgageId(-1)
+		val NONE = MortgageId("0")
 	}
 }

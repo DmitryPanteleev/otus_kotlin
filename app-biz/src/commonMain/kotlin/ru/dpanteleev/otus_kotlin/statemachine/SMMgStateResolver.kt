@@ -5,8 +5,8 @@ import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-class SMAdStateResolver {
-    fun resolve(signal: SMAdSignal): SMTransition {
+class SMMgStateResolver {
+    fun resolve(signal: SMMgSignal): SMTransition {
         require(signal.duration >= 0.milliseconds) { "Publication duration cannot be negative" }
         require(signal.views >= 0) { "View count cannot be negative" }
         val sig = Sig(

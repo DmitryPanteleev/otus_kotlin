@@ -9,7 +9,7 @@ import ru.dpanteleev.otus_kotlin.models.State
 import ru.otus.otuskotlin.marketplace.core.ICoreChainDsl
 import ru.otus.otuskotlin.marketplace.core.worker
 
-private val machine = SMAdStateResolver()
+private val machine = SMMgStateResolver()
 private val clazz: KClass<*> = ICoreChainDsl<Context>::computeAdState::class
 
 fun ICoreChainDsl<Context>.computeAdState(title: String) = worker {
@@ -22,7 +22,7 @@ fun ICoreChainDsl<Context>.computeAdState(title: String) = worker {
 		val mortgage = mgValidated
 		val prevState = mortgage.mgState
 		val timePublished = mortgage.timePublished.takeIf { it != Instant.NONE } ?: timeNow
-		val signal = SMAdSignal(
+		val signal = SMMgSignal(
 			state = prevState.takeIf { it != SMStates.NONE } ?: SMStates.NEW,
 			duration = timeNow - timePublished,
 			views = mortgage.views,

@@ -20,7 +20,7 @@ class MapperTest {
 			command = Command.CREATE,
 			mortgageResponse = mutableListOf(
 				Mortgage(
-					MortgageId(666),
+					MortgageId("666"),
 					title = "title",
 					description = "desc",
 					borrowerCategoryModel = BorrowerCategoryModel.EMPLOYEE,

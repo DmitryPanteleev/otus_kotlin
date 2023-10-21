@@ -4,12 +4,12 @@ import kotlinx.datetime.Instant
 import ru.dpanteleev.otus_kotlin.models.Command
 import ru.dpanteleev.otus_kotlin.models.FilterRequest
 import ru.dpanteleev.otus_kotlin.models.MgError
-import ru.dpanteleev.otus_kotlin.models.MgFilter
 import ru.dpanteleev.otus_kotlin.models.Mortgage
 import ru.dpanteleev.otus_kotlin.models.RequestId
 import ru.dpanteleev.otus_kotlin.models.State
 import ru.dpanteleev.otus_kotlin.models.WorkMode
-import ru.dpanteleev.otus_kotlin.statemachine.SMStates
+import ru.dpanteleev.otus_kotlin.permissions.MgPrincipalModel
+import ru.dpanteleev.otus_kotlin.repo.IMgRepository
 import ru.dpanteleev.otus_kotlin.stubs.MgStubs
 
 data class Context(
@@ -35,4 +35,11 @@ data class Context(
 
 	var settings: CoreSettings = CoreSettings.NONE,
 
-)
+	var mgRepo: IMgRepository = IMgRepository.NONE,
+	var mgRepoRead: Mortgage = Mortgage(),
+	var mgRepoPrepare: Mortgage = Mortgage(),
+	var mgRepoDone: Mortgage = Mortgage(),
+	var mgsRepoDone: MutableList<Mortgage> = mutableListOf(),
+
+	var principal: MgPrincipalModel = MgPrincipalModel.NONE,
+	)

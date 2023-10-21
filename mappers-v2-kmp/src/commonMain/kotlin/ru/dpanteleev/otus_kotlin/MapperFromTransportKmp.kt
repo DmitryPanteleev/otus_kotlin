@@ -38,7 +38,7 @@ fun Context.fromTransport(request: IRequest) = when (request) {
 }
 
 private fun IRequest?.requestId() = this?.requestId?.let { RequestId(it) } ?: RequestId.NONE
-private fun String?.toMgId() = this?.let { MortgageId(it.toLong()) } ?: MortgageId.NONE
+private fun String?.toMgId() = this?.let { MortgageId(it) } ?: MortgageId.NONE
 private fun String?.toMgWithId() = Mortgage(this.toMgId())
 private fun MgSearchFilter?.toInternal(): FilterRequest = FilterRequest(
 	searchString = this?.searchString ?: ""

@@ -10,8 +10,7 @@ import ru.otus.otuskotlin.marketplace.core.worker
 fun ICoreChainDsl<Context>.validateIdProperFormat(title: String) = worker {
 	this.title = title
 
-	// Может быть вынесен в MkplAdId для реализации различных форматов
-	val regExp = Regex("^[0-9a-zA-Z-]+$")
+	val regExp = Regex("^[0-9a-zA-Z-]+$|.?")
 	on { mgValidating.id != MortgageId.NONE && !mgValidating.id.asString().matches(regExp) }
 	handle {
 		val encodedId = mgValidating.id.asString()
