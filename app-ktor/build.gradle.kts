@@ -75,6 +75,7 @@ kotlin {
 				implementation(ktor("auth")) // "io.ktor:ktor-auth:$ktorVersion"
 
 				implementation(project(":common"))
+				implementation(project(":app-common"))
 				implementation(project(":app-biz"))
 
 				// v2 ru.dpanteleev.otus_kotlin.api
@@ -83,6 +84,12 @@ kotlin {
 
 				// Stubs
 				implementation(project(":stubs"))
+
+				implementation(project(":lib-logging-logback"))
+				implementation(project(":repo-postgress"))
+				implementation(project(":repo-stubs"))
+
+//				implementation("ch.qos.logback:logback-classic:$logbackVersion")
 
 				implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 				implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
