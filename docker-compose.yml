@@ -23,6 +23,6 @@ services:
     restart: on-failure
     ports:
       - "8080:8080"
-#    environment:
-
-    network_mode: host
+    expose:
+      - "8080"
+#    network_mode: host

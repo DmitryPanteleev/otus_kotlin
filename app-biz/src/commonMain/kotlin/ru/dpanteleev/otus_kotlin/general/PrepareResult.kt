@@ -12,7 +12,7 @@ fun ICoreChainDsl<Context>.prepareResult(title: String) = worker {
 	description = "Подготовка данных для ответа клиенту на запрос"
 	on { workMode != WorkMode.STUB }
 	handle {
-		mortgageResponse = mgsRepoDone.plus(mgRepoDone) as MutableList<Mortgage>
+		mortgageResponse = (mgRepoDone?.let { mgsRepoDone.plus(it) } ?: mgsRepoDone) as MutableList<Mortgage>
 		state = when (val st = state) {
 			State.ACTIVE -> State.FINISHING
 			else -> st

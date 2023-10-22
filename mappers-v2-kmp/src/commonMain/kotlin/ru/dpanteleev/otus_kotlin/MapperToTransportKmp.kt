@@ -11,6 +11,7 @@ import ru.dpanteleev.otus_kotlin.models.MgCreateResponse
 import ru.dpanteleev.otus_kotlin.models.MgDeleteResponse
 import ru.dpanteleev.otus_kotlin.models.MgError
 import ru.dpanteleev.otus_kotlin.models.MgInitResponse
+import ru.dpanteleev.otus_kotlin.models.MgLock
 import ru.dpanteleev.otus_kotlin.models.MgOffersResponse
 import ru.dpanteleev.otus_kotlin.models.MgPermissionClient
 import ru.dpanteleev.otus_kotlin.models.MgPermissions
@@ -21,6 +22,7 @@ import ru.dpanteleev.otus_kotlin.models.MgUpdateResponse
 import ru.dpanteleev.otus_kotlin.models.MgVisibility
 import ru.dpanteleev.otus_kotlin.models.Mortgage
 import ru.dpanteleev.otus_kotlin.models.MortgageId
+import ru.dpanteleev.otus_kotlin.models.Rate
 import ru.dpanteleev.otus_kotlin.models.ResponseResult
 import ru.dpanteleev.otus_kotlin.models.State
 import ru.dpanteleev.otus_kotlin.models.Visibility
@@ -39,7 +41,7 @@ fun Context.toTransport(): IResponse = when (val cmd = command) {
 fun Context.toTransportCreate() = MgCreateResponse(
 	responseType = "create",
 	requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-	result = if (state == State.ACTIVE) ResponseResult.SUCCESS else ResponseResult.ERROR,
+	result = if (state == State.FINISHING) ResponseResult.SUCCESS else ResponseResult.ERROR,
 	errors = errors.toTransportErrors(),
 	mg = mortgageResponse.toTransport()?.takeIf { it.size == 1 }?.first()
 )
@@ -47,7 +49,7 @@ fun Context.toTransportCreate() = MgCreateResponse(
 fun Context.toTransportRead() = MgReadResponse(
 	responseType = "read",
 	requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-	result = if (state == State.ACTIVE) ResponseResult.SUCCESS else ResponseResult.ERROR,
+	result = if (state == State.FINISHING) ResponseResult.SUCCESS else ResponseResult.ERROR,
 	errors = errors.toTransportErrors(),
 	mg = mortgageResponse.toTransport()?.takeIf { it.size == 1 }?.first()
 )
@@ -55,7 +57,7 @@ fun Context.toTransportRead() = MgReadResponse(
 fun Context.toTransportUpdate() = MgUpdateResponse(
 	responseType = "update",
 	requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-	result = if (state == State.ACTIVE) ResponseResult.SUCCESS else ResponseResult.ERROR,
+	result = if (state == State.FINISHING) ResponseResult.SUCCESS else ResponseResult.ERROR,
 	errors = errors.toTransportErrors(),
 	mg = mortgageResponse.toTransport()?.takeIf { it.size == 1 }?.first()
 )
@@ -63,7 +65,7 @@ fun Context.toTransportUpdate() = MgUpdateResponse(
 fun Context.toTransportDelete() = MgDeleteResponse(
 	responseType = "delete",
 	requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-	result = if (state == State.ACTIVE) ResponseResult.SUCCESS else ResponseResult.ERROR,
+	result = if (state == State.FINISHING) ResponseResult.SUCCESS else ResponseResult.ERROR,
 	errors = errors.toTransportErrors(),
 	mg = mortgageResponse.toTransport()?.takeIf { it.size == 1 }?.first()
 )
@@ -71,7 +73,7 @@ fun Context.toTransportDelete() = MgDeleteResponse(
 fun Context.toTransportSearch() = MgSearchResponse(
 	responseType = "search",
 	requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-	result = if (state == State.ACTIVE) ResponseResult.SUCCESS else ResponseResult.ERROR,
+	result = if (state == State.FINISHING) ResponseResult.SUCCESS else ResponseResult.ERROR,
 	errors = errors.toTransportErrors(),
 	mgs = mortgageResponse.toTransport()
 )
@@ -79,7 +81,7 @@ fun Context.toTransportSearch() = MgSearchResponse(
 fun Context.toTransportOffers() = MgOffersResponse(
 	responseType = "offers",
 	requestId = this.requestId.asString().takeIf { it.isNotBlank() },
-	result = if (state == State.ACTIVE) ResponseResult.SUCCESS else ResponseResult.ERROR,
+	result = if (state == State.FINISHING) ResponseResult.SUCCESS else ResponseResult.ERROR,
 	errors = errors.toTransportErrors(),
 	mgs = mortgageResponse.toTransport()
 )
@@ -105,7 +107,8 @@ private fun Mortgage.toTransport(): MgResponseObject = MgResponseObject(
 	visibility = visibility.toTransport(),
 	permissions = permissionsClient.toTransport(),
 	productId = id.takeIf { it != MortgageId.NONE }?.asString(),
-	rate = rate.asLong()
+	rate = rate.takeIf { it != Rate.NONE }?.asLong(),
+	lock = lock.takeIf { it != MgLock.NONE }?.asString()
 )
 
 private fun Set<MgPermissionClient>.toTransport(): Set<MgPermissions>? = this

@@ -1,8 +1,9 @@
 package ru.dpanteleev.otus_kotlin.api
 
+import io.ktor.http.ContentType
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receiveText
-import io.ktor.server.response.respond
+import io.ktor.server.response.respondText
 import kotlinx.serialization.encodeToString
 import ru.dpanteleev.otus_kotlin.Context
 import ru.dpanteleev.otus_kotlin.MgProcessor
@@ -24,7 +25,7 @@ suspend fun ApplicationCall.create(processor: MgProcessor) {
 	val context = Context()
 	context.fromTransport(request)
 	processor.exec(context)
-	respond(apiV2Mapper.encodeToString(context.toTransportCreate()))
+	respondText(apiV2Mapper.encodeToString(context.toTransportCreate()), ContentType.Application.Json)
 }
 
 suspend fun ApplicationCall.read(processor: MgProcessor) {
@@ -32,7 +33,7 @@ suspend fun ApplicationCall.read(processor: MgProcessor) {
 	val context = Context()
 	context.fromTransport(request)
 	processor.exec(context)
-	respond(apiV2Mapper.encodeToString(context.toTransportRead()))
+	respondText(apiV2Mapper.encodeToString(context.toTransportRead()), ContentType.Application.Json)
 }
 
 suspend fun ApplicationCall.update(processor: MgProcessor) {
@@ -40,7 +41,7 @@ suspend fun ApplicationCall.update(processor: MgProcessor) {
 	val context = Context()
 	context.fromTransport(request)
 	processor.exec(context)
-	respond(apiV2Mapper.encodeToString(context.toTransportUpdate()))
+	respondText(apiV2Mapper.encodeToString(context.toTransportUpdate()), ContentType.Application.Json)
 }
 
 suspend fun ApplicationCall.delete(processor: MgProcessor) {
@@ -48,7 +49,7 @@ suspend fun ApplicationCall.delete(processor: MgProcessor) {
 	val context = Context()
 	context.fromTransport(request)
 	processor.exec(context)
-	respond(apiV2Mapper.encodeToString(context.toTransportDelete()))
+	respondText(apiV2Mapper.encodeToString(context.toTransportDelete()), ContentType.Application.Json)
 }
 
 suspend fun ApplicationCall.search(processor: MgProcessor) {
@@ -56,5 +57,5 @@ suspend fun ApplicationCall.search(processor: MgProcessor) {
 	val context = Context()
 	context.fromTransport(request)
 	processor.exec(context)
-	respond(apiV2Mapper.encodeToString(context.toTransportSearch()))
+	respondText(apiV2Mapper.encodeToString(context.toTransportSearch()), ContentType.Application.Json)
 }

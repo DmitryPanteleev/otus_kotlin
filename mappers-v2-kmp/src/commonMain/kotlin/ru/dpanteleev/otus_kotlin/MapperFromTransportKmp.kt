@@ -2,20 +2,15 @@ package ru.dpanteleev.otus_kotlin
 
 import ru.dpanteleev.otus_kotlin.exceptions.UnknownClass
 import ru.dpanteleev.otus_kotlin.models.BankId
+import ru.dpanteleev.otus_kotlin.models.BorrowerCategory
 import ru.dpanteleev.otus_kotlin.models.BorrowerCategoryModel
 import ru.dpanteleev.otus_kotlin.models.Command
 import ru.dpanteleev.otus_kotlin.models.FilterRequest
-import ru.dpanteleev.otus_kotlin.models.Mortgage
-import ru.dpanteleev.otus_kotlin.models.MortgageId
-import ru.dpanteleev.otus_kotlin.models.Rate
-import ru.dpanteleev.otus_kotlin.models.RequestId
-import ru.dpanteleev.otus_kotlin.models.Visibility
-import ru.dpanteleev.otus_kotlin.models.WorkMode
-import ru.dpanteleev.otus_kotlin.models.BorrowerCategory
 import ru.dpanteleev.otus_kotlin.models.IRequest
 import ru.dpanteleev.otus_kotlin.models.MgCreateObject
 import ru.dpanteleev.otus_kotlin.models.MgCreateRequest
 import ru.dpanteleev.otus_kotlin.models.MgDeleteRequest
+import ru.dpanteleev.otus_kotlin.models.MgLock
 import ru.dpanteleev.otus_kotlin.models.MgOffersRequest
 import ru.dpanteleev.otus_kotlin.models.MgReadRequest
 import ru.dpanteleev.otus_kotlin.models.MgRequestDebugMode
@@ -25,6 +20,12 @@ import ru.dpanteleev.otus_kotlin.models.MgSearchRequest
 import ru.dpanteleev.otus_kotlin.models.MgUpdateObject
 import ru.dpanteleev.otus_kotlin.models.MgUpdateRequest
 import ru.dpanteleev.otus_kotlin.models.MgVisibility
+import ru.dpanteleev.otus_kotlin.models.Mortgage
+import ru.dpanteleev.otus_kotlin.models.MortgageId
+import ru.dpanteleev.otus_kotlin.models.Rate
+import ru.dpanteleev.otus_kotlin.models.RequestId
+import ru.dpanteleev.otus_kotlin.models.Visibility
+import ru.dpanteleev.otus_kotlin.models.WorkMode
 import ru.dpanteleev.otus_kotlin.stubs.MgStubs
 
 fun Context.fromTransport(request: IRequest) = when (request) {
@@ -37,9 +38,10 @@ fun Context.fromTransport(request: IRequest) = when (request) {
 	else -> throw UnknownClass(request::class)
 }
 
+private fun String?.toMgLock() = this?.let { MgLock(this) } ?: MgLock.NONE
 private fun IRequest?.requestId() = this?.requestId?.let { RequestId(it) } ?: RequestId.NONE
 private fun String?.toMgId() = this?.let { MortgageId(it) } ?: MortgageId.NONE
-private fun String?.toMgWithId() = Mortgage(this.toMgId())
+private fun String?.toMgWithId(lock: MgLock = MgLock.NONE) = Mortgage(this.toMgId(), lock = lock)
 private fun MgSearchFilter?.toInternal(): FilterRequest = FilterRequest(
 	searchString = this?.searchString ?: ""
 )
@@ -120,7 +122,7 @@ fun Context.fromTransport(request: MgUpdateRequest) {
 fun Context.fromTransport(request: MgDeleteRequest) {
 	command = Command.DELETE
 	requestId = request.requestId()
-	mortgageRequest = request.mg?.id.toMgWithId()
+	mortgageRequest = request.mg?.id.toMgWithId(request.mg?.lock.toMgLock())
 	workMode = request.debug?.mode?.toWorkMode() ?: WorkMode.PROD
 	stubCase = request.debug?.stub?.toStub() ?: MgStubs.NOT_FOUND
 }

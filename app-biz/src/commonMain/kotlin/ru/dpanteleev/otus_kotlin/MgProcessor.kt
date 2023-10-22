@@ -13,12 +13,11 @@ import ru.dpanteleev.otus_kotlin.repo.repoDelete
 import ru.dpanteleev.otus_kotlin.repo.repoOffers
 import ru.dpanteleev.otus_kotlin.repo.repoPrepareCreate
 import ru.dpanteleev.otus_kotlin.repo.repoPrepareDelete
-import ru.dpanteleev.otus_kotlin.repo.repoPrepareOffers
 import ru.dpanteleev.otus_kotlin.repo.repoPrepareUpdate
 import ru.dpanteleev.otus_kotlin.repo.repoRead
 import ru.dpanteleev.otus_kotlin.repo.repoSearch
 import ru.dpanteleev.otus_kotlin.repo.repoUpdate
-import ru.dpanteleev.otus_kotlin.validation.finishAdFilterValidation
+import ru.dpanteleev.otus_kotlin.validation.finishMgFilterValidation
 import ru.dpanteleev.otus_kotlin.validation.finishMgValidation
 import ru.dpanteleev.otus_kotlin.validation.validateDescriptionHasContent
 import ru.dpanteleev.otus_kotlin.validation.validateDescriptionNotEmpty
@@ -175,8 +174,7 @@ class MgProcessor(val settings: CoreSettings = CoreSettings()) {
 				}
 				validation {
 					worker("Копируем поля в adFilterValidating") { mgFilterValidating = filterRequest.copy() }
-
-					finishAdFilterValidation("Успешное завершение процедуры валидации")
+					finishMgFilterValidation("Успешное завершение процедуры валидации")
 				}
 				repoSearch("Поиск объявления в БД по фильтру")
 				prepareResult("Подготовка ответа")
@@ -198,8 +196,8 @@ class MgProcessor(val settings: CoreSettings = CoreSettings()) {
 				}
 				chain {
 					title = "Логика поиска в БД"
-					repoRead("Чтение объявления из БД")
-					repoPrepareOffers("Подготовка данных для поиска предложений")
+//					repoRead("Чтение объявления из БД")
+//					repoPrepareOffers("Подготовка данных для поиска предложений")
 					repoOffers("Поиск предложений для объявления в БД")
 				}
 				prepareResult("Подготовка ответа")

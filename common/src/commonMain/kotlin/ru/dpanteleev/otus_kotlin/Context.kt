@@ -38,7 +38,7 @@ data class Context(
 	var mgRepo: IMgRepository = IMgRepository.NONE,
 	var mgRepoRead: Mortgage = Mortgage(),
 	var mgRepoPrepare: Mortgage = Mortgage(),
-	var mgRepoDone: Mortgage = Mortgage(),
+	var mgRepoDone: Mortgage? = null,
 	var mgsRepoDone: MutableList<Mortgage> = mutableListOf(),
 
 	var principal: MgPrincipalModel = MgPrincipalModel.NONE,

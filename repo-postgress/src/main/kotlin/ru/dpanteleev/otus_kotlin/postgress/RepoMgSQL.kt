@@ -5,6 +5,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.isNull
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
@@ -26,9 +27,9 @@ import ru.dpanteleev.otus_kotlin.repo.DbMgsResponse
 import ru.dpanteleev.otus_kotlin.repo.IMgRepository
 
 class RepoMgSQL(
-    properties: SqlProperties,
-    initObjects: Collection<Mortgage> = emptyList(),
-    val randomUuid: () -> String = { uuid4().toString() },
+	properties: SqlProperties,
+	initObjects: Collection<Mortgage> = emptyList(),
+	val randomUuid: () -> String = { uuid4().toString() },
 ) : IMgRepository {
 
 	init {
@@ -95,7 +96,7 @@ class RepoMgSQL(
 
 			when {
 				current == null -> DbMgResponse.errorNotFound
-				current.lock != lock -> DbMgResponse.errorConcurrent(lock, current)
+				current.lock != lock && current.lock != MgLock.NONE -> DbMgResponse.errorConcurrent(lock, current)
 				else -> block(current)
 			}
 		}
@@ -112,7 +113,7 @@ class RepoMgSQL(
 
 	override suspend fun deleteMg(rq: DbMgIdRequest): DbMgResponse = update(rq.id, rq.lock) {
 		MortgageTable.deleteWhere {
-			(id eq rq.id.asString()) and (lock eq rq.lock.asString())
+			(id eq rq.id.asString()) and ((lock eq rq.lock.asString()) or lock.isNull())
 		}
 		DbMgResponse.success(it)
 	}
