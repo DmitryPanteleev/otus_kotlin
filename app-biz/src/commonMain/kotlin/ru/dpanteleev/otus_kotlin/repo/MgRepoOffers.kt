@@ -23,8 +23,8 @@ fun ICoreChainDsl<Context>.repoOffers(title: String) = worker {
 				isSuccess = false,
 				errors = listOf(
 					MgError(
-						field = "adType",
-						message = "Type of ad must not be empty"
+						field = "mgType",
+						message = "Type of mg must not be empty"
 					)
 				)
 			)

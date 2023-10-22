@@ -13,10 +13,10 @@ fun ICoreChainDsl<Context>.finishMgValidation(title: String) = worker {
 	}
 }
 
-fun ICoreChainDsl<Context>.finishAdFilterValidation(title: String) = worker {
+fun ICoreChainDsl<Context>.finishMgFilterValidation(title: String) = worker {
 	this.title = title
 	on { state == State.ACTIVE }
 	handle {
-		filterRequest = filterRequest
+		mgFilterValidated = mgFilterValidating
 	}
 }

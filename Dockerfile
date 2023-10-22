@@ -12,4 +12,5 @@ ENTRYPOINT exec java $JAVA_OPTS \
     -Duser.timezone=${TZ} \
     -jar app.jar
 
-COPY build/libs/home_work-1.0-SNAPSHOT.jar app.jar
+COPY app-ktor/build/libs/app-ktor-all.jar app.jar
+#COPY build/libs/home_work-1.0-SNAPSHOT.jar app.jar

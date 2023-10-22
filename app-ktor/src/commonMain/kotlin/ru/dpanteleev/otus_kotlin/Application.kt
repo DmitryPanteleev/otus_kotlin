@@ -8,7 +8,8 @@ import ru.dpanteleev.otus_kotlin.plugins.configureHTTP
 import ru.dpanteleev.otus_kotlin.plugins.configureRouting
 import ru.dpanteleev.otus_kotlin.plugins.configureSerialization
 
-fun main() {
+fun main(vararg: Array<String>) {
+	vararg
 	embeddedServer(
 		CIO,
 		port = 8080,
